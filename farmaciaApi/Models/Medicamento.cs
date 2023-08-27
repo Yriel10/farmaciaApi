@@ -16,11 +16,16 @@ namespace farmaciaApi.Models
         public decimal Precio { get; set; }
         public int Cantidad { get; set; }
 
-        public string Foto { get; set; }
-
-
-
-
-
+        public string? Foto { get; set; }
+        public Boolean? TipoMedicamento { get; set; }
     }
 }
+
+    
+
+
+
+
+
+    
+

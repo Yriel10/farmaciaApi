@@ -12,55 +12,55 @@ namespace farmaciaApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FacturasController : ControllerBase
+    public class OfertasController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public FacturasController(AppDbContext context)
+        public OfertasController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Facturas
+        // GET: api/Ofertas
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Factura>>> GetFactura()
+        public async Task<ActionResult<IEnumerable<Ofertas>>> GetOfertas()
         {
-          if (_context.Factura == null)
+          if (_context.Ofertas == null)
           {
               return NotFound();
           }
-            return await _context.Factura.ToListAsync();
+            return await _context.Ofertas.ToListAsync();
         }
 
-        // GET: api/Facturas/5
+        // GET: api/Ofertas/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Factura>> GetFactura(int id)
+        public async Task<ActionResult<Ofertas>> GetOfertas(int id)
         {
-          if (_context.Factura == null)
+          if (_context.Ofertas == null)
           {
               return NotFound();
           }
-            var factura = await _context.Factura.FindAsync(id);
+            var ofertas = await _context.Ofertas.FindAsync(id);
 
-            if (factura == null)
+            if (ofertas == null)
             {
                 return NotFound();
             }
 
-            return factura;
+            return ofertas;
         }
 
-        // PUT: api/Facturas/5
+        // PUT: api/Ofertas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFactura(int id, Factura factura)
+        public async Task<IActionResult> PutOfertas(int id, Ofertas ofertas)
         {
-            if (id != factura.IdFactura)
+            if (id != ofertas.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(factura).State = EntityState.Modified;
+            _context.Entry(ofertas).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace farmaciaApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!FacturaExists(id))
+                if (!OfertasExists(id))
                 {
                     return NotFound();
                 }
@@ -81,45 +81,44 @@ namespace farmaciaApi.Controllers
             return NoContent();
         }
 
-        // POST: api/Facturas
+        // POST: api/Ofertas
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Factura>> PostFactura(Factura factura)
-        
+        public async Task<ActionResult<Ofertas>> PostOfertas(Ofertas ofertas)
         {
-          if (_context.Factura == null)
+          if (_context.Ofertas == null)
           {
-              return Problem("Entity set 'AppDbContext.Factura'  is null.");
+              return Problem("Entity set 'AppDbContext.Ofertas'  is null.");
           }
-            _context.Factura.Add(factura);
-                await _context.SaveChangesAsync();
+            _context.Ofertas.Add(ofertas);
+            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFactura", new { id = factura.IdFactura }, factura);
+            return CreatedAtAction("GetOfertas", new { id = ofertas.Id }, ofertas);
         }
 
-        // DELETE: api/Facturas/5
+        // DELETE: api/Ofertas/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFactura(int id)
+        public async Task<IActionResult> DeleteOfertas(int id)
         {
-            if (_context.Factura == null)
+            if (_context.Ofertas == null)
             {
                 return NotFound();
             }
-            var factura = await _context.Factura.FindAsync(id);
-            if (factura == null)
+            var ofertas = await _context.Ofertas.FindAsync(id);
+            if (ofertas == null)
             {
                 return NotFound();
             }
 
-            _context.Factura.Remove(factura);
+            _context.Ofertas.Remove(ofertas);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool FacturaExists(int id)
+        private bool OfertasExists(int id)
         {
-            return (_context.Factura?.Any(e => e.IdFactura == id)).GetValueOrDefault();
+            return (_context.Ofertas?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

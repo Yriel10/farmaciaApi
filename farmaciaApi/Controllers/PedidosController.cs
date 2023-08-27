@@ -12,55 +12,55 @@ namespace farmaciaApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FacturasController : ControllerBase
+    public class PedidosController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public FacturasController(AppDbContext context)
+        public PedidosController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Facturas
+        // GET: api/Pedidos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Factura>>> GetFactura()
+        public async Task<ActionResult<IEnumerable<Pedidos>>> GetPedidos()
         {
-          if (_context.Factura == null)
+          if (_context.Pedidos == null)
           {
               return NotFound();
           }
-            return await _context.Factura.ToListAsync();
+            return await _context.Pedidos.ToListAsync();
         }
 
-        // GET: api/Facturas/5
+        // GET: api/Pedidos/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Factura>> GetFactura(int id)
+        public async Task<ActionResult<Pedidos>> GetPedidos(int id)
         {
-          if (_context.Factura == null)
+          if (_context.Pedidos == null)
           {
               return NotFound();
           }
-            var factura = await _context.Factura.FindAsync(id);
+            var pedidos = await _context.Pedidos.FindAsync(id);
 
-            if (factura == null)
+            if (pedidos == null)
             {
                 return NotFound();
             }
 
-            return factura;
+            return pedidos;
         }
 
-        // PUT: api/Facturas/5
+        // PUT: api/Pedidos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFactura(int id, Factura factura)
+        public async Task<IActionResult> PutPedidos(int id, Pedidos pedidos)
         {
-            if (id != factura.IdFactura)
+            if (id != pedidos.IdPedido)
             {
                 return BadRequest();
             }
 
-            _context.Entry(factura).State = EntityState.Modified;
+            _context.Entry(pedidos).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +68,7 @@ namespace farmaciaApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!FacturaExists(id))
+                if (!PedidosExists(id))
                 {
                     return NotFound();
                 }
@@ -81,45 +81,44 @@ namespace farmaciaApi.Controllers
             return NoContent();
         }
 
-        // POST: api/Facturas
+        // POST: api/Pedidos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Factura>> PostFactura(Factura factura)
-        
+        public async Task<ActionResult<Pedidos>> PostPedidos(Pedidos pedidos)
         {
-          if (_context.Factura == null)
+          if (_context.Pedidos == null)
           {
-              return Problem("Entity set 'AppDbContext.Factura'  is null.");
+              return Problem("Entity set 'AppDbContext.Pedidos'  is null.");
           }
-            _context.Factura.Add(factura);
-                await _context.SaveChangesAsync();
+            _context.Pedidos.Add(pedidos);
+            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFactura", new { id = factura.IdFactura }, factura);
+            return CreatedAtAction("GetPedidos", new { id = pedidos.IdPedido }, pedidos);
         }
 
-        // DELETE: api/Facturas/5
+        // DELETE: api/Pedidos/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFactura(int id)
+        public async Task<IActionResult> DeletePedidos(int id)
         {
-            if (_context.Factura == null)
+            if (_context.Pedidos == null)
             {
                 return NotFound();
             }
-            var factura = await _context.Factura.FindAsync(id);
-            if (factura == null)
+            var pedidos = await _context.Pedidos.FindAsync(id);
+            if (pedidos == null)
             {
                 return NotFound();
             }
 
-            _context.Factura.Remove(factura);
+            _context.Pedidos.Remove(pedidos);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool FacturaExists(int id)
+        private bool PedidosExists(int id)
         {
-            return (_context.Factura?.Any(e => e.IdFactura == id)).GetValueOrDefault();
+            return (_context.Pedidos?.Any(e => e.IdPedido == id)).GetValueOrDefault();
         }
     }
 }

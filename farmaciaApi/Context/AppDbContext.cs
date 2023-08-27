@@ -14,9 +14,18 @@ namespace farmaciaApi.Context
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Multimedia> Multimedia { get; set; }
         public DbSet<Medicamento> Medicamento { get; set; }
+        public DbSet<farmaciaApi.Models.Ofertas>? Ofertas { get; set; }
+        public DbSet<farmaciaApi.Models.Notificaiones>? Notificaiones { get; set; }
+        public DbSet<farmaciaApi.Models.Solicitud>? Solicitud { get; set; }
+        public DbSet<farmaciaApi.Models.Pedidos>? Pedidos { get; set; }
+        public DbSet<farmaciaApi.Models.Detalle>? Detalle { get; set; }
         public DbSet<farmaciaApi.Models.Factura>? Factura { get; set; }
-      
+
+        public DbSet<farmaciaApi.Models.FacturaDetalleModel> DetalleModels { get; set; }
+
+
+
     }
 
-  
+
 }
