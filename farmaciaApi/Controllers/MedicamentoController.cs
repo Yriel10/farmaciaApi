@@ -80,7 +80,36 @@ namespace farmaciaApi.Controllers
 
             return NoContent();
         }
+        // PUT: api/Medicamentos/ActualizarCantidad
+        [HttpPut("ActualizarCantidad")]
+        public IActionResult ActualizarCantidad(string nombreProducto, int cantidad)
+        {
+            try
+            {
+                var medicamento = _context.Medicamento.FirstOrDefault(m => m.Nombre == nombreProducto);
 
+                if (medicamento == null)
+                {
+                    return NotFound($"No se encontró ningún medicamento con el nombre '{nombreProducto}'.");
+                }
+
+                // Resta la cantidad especificada de la cantidad actual del medicamento
+                if (cantidad > 0 && cantidad <= medicamento.Cantidad)
+                {
+                    medicamento.Cantidad -= cantidad;
+                    _context.SaveChanges();
+                    return NoContent();
+                }
+                else
+                {
+                    return BadRequest("La cantidad especificada es inválida.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error interno del servidor: {ex.Message}");
+            }
+        }
         // POST: api/Medicamento
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]

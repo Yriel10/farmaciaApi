@@ -7,7 +7,7 @@ namespace farmaciaApi.Models
     public class Usuario
     {
         [Key]
-        public int idUsuario { get; set; }
+        public int? idUsuario { get; set; }
         public string Nombres { get; set; }
         public string Apellidos { get; set; }
         public string Correo { get; set; }

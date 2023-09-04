@@ -23,6 +23,10 @@ namespace farmaciaApi.Context
 
         public DbSet<farmaciaApi.Models.FacturaDetalleModel> DetalleModels { get; set; }
 
+        public DbSet<farmaciaApi.Models.Inventario>? Inventario { get; set; }
+
+        public DbSet<farmaciaApi.Models.Logs>? Logs { get; set; }
+
 
 
     }
